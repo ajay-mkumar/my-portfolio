@@ -6,7 +6,7 @@ import { Tooltip, IconButton } from "@mui/material";
 function NavBar() {
   return (
     <div className="sm:flex justify-between m-5 relative">
-      <h1 className="absolute left-[200px] font-bold">Ajay Muthukumaran</h1>
+      <h1 className="absolute left-[250px] font-bold">Ajay Muthukumaran</h1>
 
       <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
       {["Home", "About", "Work", "Project"].map((label, index) => (
