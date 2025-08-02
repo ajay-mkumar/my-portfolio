@@ -2,6 +2,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import NetlifyIcon from "../Icon/NetlifyIcon";
 import { Tooltip, IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -10,12 +11,13 @@ function NavBar() {
 
       <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
       {["Home", "About", "Work", "Project"].map((label, index) => (
-          <li
+          <Link
+          to={label.toLowerCase()}
             key={index}
             className="text-gray-600 hover:text-blue-500 font-medium text-sm md:text-base cursor-pointer transition-all duration-300 transform hover:scale-110"
           >
             {label}
-          </li>
+          </Link>
         ))}
       </ul>
 
