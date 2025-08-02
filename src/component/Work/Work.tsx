@@ -10,7 +10,7 @@ function Work() {
       {workExperience.map((exp, index) => (
         <div
           key={index}
-          className="p-5 m-5 shadow-lg bg-slate-100 hover:scale-105 transition duration-300"
+          className="p-5 m-5 shadow-2xl rounded-lg bg-white hover:scale-105 transition duration-300"
         >
           <h3 className="font-bold text-blue-700">{exp.designation}</h3>
           <p>{exp.Duration}</p>

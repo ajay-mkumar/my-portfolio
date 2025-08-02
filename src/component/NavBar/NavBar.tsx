@@ -7,14 +7,14 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <div className="sm:flex justify-between m-5 relative">
-      <h1 className="absolute left-[250px] font-bold">Ajay Muthukumaran</h1>
+      <h1 className="absolute left-[250px] font-bold text-white">Ajay Muthukumaran</h1>
 
       <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
       {["Home", "About", "Work", "Project"].map((label, index) => (
           <Link
           to={label.toLowerCase()}
             key={index}
-            className="text-gray-600 hover:text-blue-500 font-medium text-sm md:text-base cursor-pointer transition-all duration-300 transform hover:scale-110"
+            className="text-white hover:text-blue-500 font-medium text-sm md:text-base cursor-pointer transition-all duration-300 transform hover:scale-110"
           >
             {label}
           </Link>
