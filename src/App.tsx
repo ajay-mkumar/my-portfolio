@@ -1,4 +1,5 @@
-import About from "./component/About/about";
+import Work from "./component/Work/Work";
+import About from "./component/About/About";
 import Homepage from "./component/Homepage/Homepage";
 import NavBar from "./component/NavBar/NavBar";
 import {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/work" element={<Work />} />
       </Routes>
     </Router>
   );
