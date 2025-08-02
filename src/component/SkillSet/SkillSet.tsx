@@ -1,16 +1,4 @@
-const skills = {
-  frontend: [
-    "HTML5",
-    "CSS3",
-    "JavaScript (ES6+)",
-    "React.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "Material UI",
-  ],
-  backend: ["Node.js", "Java", "Spring Boot"],
-  testingAndTools: ["Jest", "Git & GitHub", "VS Code", "Postman"],
-};
+import { skills } from "../../common/constants";
 
 function SkillSet() {
   return (

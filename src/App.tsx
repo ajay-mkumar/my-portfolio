@@ -8,6 +8,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Project from "./component/Project/Project";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home" element={<Homepage />} />
         <Route path="/about" element={<About />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/project" element={<Project />} />
       </Routes>
     </Router>
   );
