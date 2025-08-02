@@ -30,7 +30,7 @@ function NavBar() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <LinkedInIcon />
+              <LinkedInIcon className="text-white"  />
             </IconButton>
           </Tooltip>
         </li>
@@ -42,7 +42,7 @@ function NavBar() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GitHubIcon />
+              <GitHubIcon className="text-white" />
             </IconButton>
           </Tooltip>
         </li>
@@ -54,7 +54,7 @@ function NavBar() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <NetlifyIcon />
+              <NetlifyIcon className="text-white"  />
             </IconButton>
           </Tooltip>
         </li>

@@ -9,6 +9,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Project from "./component/Project/Project";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/project" element={<Project />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

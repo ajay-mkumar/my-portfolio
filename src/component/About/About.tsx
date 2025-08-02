@@ -3,7 +3,7 @@ function About() {
       <div className="m-5 mt-10 p-5 space-y-10">
         {/* About Me */}
         <div className="shadow-lg rounded-xl p-5 bg-slate-100">
-          <h1 className="text-2xl font-bold text-blue-800 mb-3">👋 About Me</h1>
+          <h1 className="text-2xl font-bold text-cyan-500 mb-3">👋 About Me</h1>
           <p className="text-base w-full md:w-2/3 leading-relaxed">
             I'm <b>Ajay</b>, a passionate <b>Frontend Developer</b> with <b>3+ years</b> of experience crafting sleek, responsive UIs using <b>React.js</b>, <b>Tailwind CSS</b>, and modern web tools. I bring a creative edge to code, blending performance with aesthetics.
             <br /><br />
@@ -15,7 +15,7 @@ function About() {
   
         {/* Work Experience */}
         <div className="shadow-lg rounded-xl p-5 bg-slate-100">
-          <h1 className="text-2xl font-bold text-blue-800 mb-3">💼 Work Experience</h1>
+          <h1 className="text-2xl font-bold text-cyan-500 mb-3">💼 Work Experience</h1>
           <ul className="list-disc pl-5 space-y-1">
             <li><b>Tata Consultancy Services</b></li>
             <li>Full Stack Developer</li>
@@ -26,7 +26,7 @@ function About() {
   
         {/* Academics */}
         <div className="shadow-lg rounded-xl p-5 bg-slate-100">
-          <h1 className="text-2xl font-bold text-blue-800 mb-3">🎓 Academics</h1>
+          <h1 className="text-2xl font-bold text-cyan-500 mb-3">🎓 Academics</h1>
           <ul className="list-disc pl-5 space-y-1">
             <li><b>Bachelor of Technology – Information Technology</b></li>
             <li>A.V.C College of Engineering</li>
