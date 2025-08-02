@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SkillSet from "../SkillSet/SkillSet";
 
 function Homepage() {
   const [modal, setModal] = useState("");
+  const [flipIn, setFlipIn] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFlipIn(prev => !prev);
+    }, 3000);
+  
+    return () => clearInterval(interval); // cleanup on unmount
+  }, []);
+  
   return (
     <>
       {modal !== "skillset" && (
@@ -28,7 +38,7 @@ function Homepage() {
           </div>
 
           {/* Image Section */}
-          <div className="rounded-full border-[6px] border-gray-200 p-2 shadow-lg relative flip-in hover:flip-in">
+          <div className={`rounded-full border-[6px] border-gray-200 p-2 shadow-lg relative ${flipIn && 'flip-in'}`}>
             <img
               src="/avatar.jpg"
               alt="Ajay Avatar"
