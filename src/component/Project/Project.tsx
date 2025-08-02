@@ -37,8 +37,15 @@ function Project() {
               </li>
             ))}
           </ul>
-          <button className="bg-blue-600 p-3 rounded-2xl text-white cursor-pointer active:scale-70 transition duration-300">
+          <button className="bg-cyan-500 p-2 text-white cursor-pointer active:scale-70 transition duration-300">
+            <a href={project.url} target="_blank">
             View Project
+            </a>
+          </button>
+          <button className="bg-cyan-500 p-2 ml-5 text-white cursor-pointer active:scale-70 transition duration-300">
+            <a href={project.code} target="_blank">
+            View Code
+            </a>
           </button>
         </div>
       </div>

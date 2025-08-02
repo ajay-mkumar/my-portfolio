@@ -2,6 +2,7 @@ import { useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 import ExternalLinks from "./ExternalLinks";
 import MobileNav from "./MobileNav";
+import { navItems } from "../../common/constants";
 
 function NavBar() {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -14,7 +15,7 @@ function NavBar() {
         </h1>
 
         <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
-          {["Home", "About", "Work", "Project"].map((label, index) => (
+          {navItems.map((label, index) => (
             <Link
               to={label.toLowerCase()}
               key={index}

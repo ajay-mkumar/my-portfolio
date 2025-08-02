@@ -16,16 +16,12 @@ function Homepage() {
               <span className="block text-white">Full Stack</span>
               <span className="block text-blue-500">Developer</span>
             </h1>
-            <button
-              className="mt-5 bg-cyan-500 hover:bg-cyan-400 text-white
- pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300"
-            >
+            <button onClick={() => window.open("resume/resume.pdf", "_blank")} className="mt-5 bg-cyan-500 hover:bg-cyan-400 text-white pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300">
               Resume
             </button>
             <button
               onClick={() => setModal("skillset")}
-              className="mt-5 ml-5 bg-cyan-500 hover:bg-cyan-400 text-white
- pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300"
+              className="mt-5 ml-5 bg-cyan-500 hover:bg-cyan-400 text-white pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300"
             >
               Skillset
             </button>

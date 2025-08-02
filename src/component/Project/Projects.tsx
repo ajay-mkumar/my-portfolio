@@ -4,7 +4,7 @@ function Projects(): React.ReactElement {
   const navigate = useNavigate();
 
   return (
-    <div className="m-10 p-5 flex flex-wrap gap-2">
+    <div className="m-10 p-5 flex flex-wrap gap-2 cursor-pointer">
       {projects.map((project, index) => (
         <div
           onClick={() => navigate(`/projects/${project.id}`)}

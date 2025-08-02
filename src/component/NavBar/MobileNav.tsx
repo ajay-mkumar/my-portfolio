@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ExternalLinks from "./ExternalLinks";
+import { navItems } from "../../common/constants";
 
 function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ function MobileNav() {
   const drawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["Home", "About", "Project", "Work"].map((text) => (
+        {navItems.map((text) => (
           <ListItemButton
             key={text}
             component={Link}
