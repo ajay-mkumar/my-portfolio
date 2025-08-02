@@ -1,4 +1,5 @@
 type Project = {
+  id: number;
   name: string;
   img: string;
   techStack: string[];
@@ -19,8 +20,9 @@ type Skills = {
 
 export const projects: Project[] = [
   {
+    id: 1,
     name: "Ecommerce Platform",
-    img: "projects/image.png",
+    img: "/projects/image.png",
     techStack: ["React.js", "Node.js", "Express"],
     description: [
       "Developed product listing, filtering, checkout components, and user authentication features.",

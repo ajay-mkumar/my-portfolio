@@ -1,13 +1,13 @@
+import { useParams } from "react-router-dom";
 import { projects } from "../../common/constants";
 
 function Project() {
-  return (
-    <div className="m-10 p-5 space-y-10  min-h-screen">
-      {projects.map((project, index) => (
-        <div
-          key={index}
-          className="bg-white rounded-xl shadow-lg p-6 space-y-6 hover:shadow-2xl transition duration-300"
-        >
+  const { id } = useParams();
+  const project = projects.find((project) => project.id === Number(id));
+  if (project)
+    return (
+      <div className="m-10 p-5 space-y-10  min-h-screen">
+        <div className="bg-white rounded-xl shadow-lg p-6 space-y-6 hover:shadow-2xl transition duration-300">
           <h1 className="text-2xl font-bold text-blue-800">{project.name}</h1>
 
           <img
@@ -41,9 +41,10 @@ function Project() {
             View Project
           </button>
         </div>
-      ))}
-    </div>
-  );
+      </div>
+    );
+  else 
+    return <div className="flex justify-center items-center text-white text-xl min-h-screen">No Project found with the id: {id}</div>
 }
 
 export default Project;

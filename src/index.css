@@ -16,6 +16,7 @@
     animation: flipIn 1s ease-out;
     backface-visibility: hidden;
   }
+  
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
