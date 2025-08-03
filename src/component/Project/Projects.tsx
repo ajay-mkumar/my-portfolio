@@ -13,6 +13,7 @@ function Projects(): React.ReactElement {
         >
           <img
             src={project.img}
+            loading="lazy"
             alt={`${project.name} preview`}
             className="w-full object-cover"
           />
