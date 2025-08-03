@@ -13,7 +13,7 @@ function ExternalLinks({ isMobile }: ExternalLinksPropTypes) {
         <Tooltip title="LinkedIn" arrow>
           <IconButton
             aria-label="LinkedIn"
-            href="https://linkedin.com/in/your-profile"
+            href="https://www.linkedin.com/in/ajay-muthukumaran-9836001a9/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -25,7 +25,7 @@ function ExternalLinks({ isMobile }: ExternalLinksPropTypes) {
         <Tooltip title="GitHub" arrow>
           <IconButton
             aria-label="GitHub"
-            href="https://github.com/your-username"
+            href="https://github.com/ajay-mkumar"
             target="_blank"
             rel="noopener noreferrer"
           >
