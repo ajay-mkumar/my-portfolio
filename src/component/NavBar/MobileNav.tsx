@@ -42,7 +42,7 @@ function MobileNav() {
     <>
       <AppBar position="static" sx={{ background: "none" }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography className="name" sx={{ flexGrow: 1 }}>
             Ajay Muthukumaran
           </Typography>
           <ExternalLinks isMobile={true} />

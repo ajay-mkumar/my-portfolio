@@ -41,6 +41,7 @@ function Homepage() {
           <div className={`rounded-full border-[6px] border-gray-200 p-2 shadow-lg relative ${flipIn && 'flip-in'}`}>
             <img
               src="/avatar.jpg"
+              loading="lazy"
               alt="Ajay Avatar"
               className="rounded-full object-cover w-60 h-60 md:w-72 md:h-72"
             />

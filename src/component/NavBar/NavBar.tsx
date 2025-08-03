@@ -10,7 +10,7 @@ function NavBar() {
   if (!isMobile)
     return (
       <div className="sm:flex justify-between m-5 relative">
-        <h1 className="absolute left-[250px] font-bold text-white">
+        <h1 className="absolute left-[250px] font-bold text-white name">
           Ajay Muthukumaran
         </h1>
 

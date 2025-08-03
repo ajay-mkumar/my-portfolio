@@ -6,12 +6,13 @@ function Project() {
   const project = projects.find((project) => project.id === Number(id));
   if (project)
     return (
-      <div className="m-10 p-5 space-y-10  min-h-screen">
+      <div className="m-10 p-5 space-y-10  min-h-screen card">
         <div className="bg-white rounded-xl shadow-lg p-6 space-y-6 hover:shadow-2xl transition duration-300">
           <h1 className="text-2xl font-bold text-blue-800">{project.name}</h1>
 
           <img
             src={project.img}
+            loading="lazy"
             alt={`${project.name} preview`}
             className="w-full md:w-2/3 lg:w-1/2 rounded-lg mx-auto"
           />
@@ -39,19 +40,23 @@ function Project() {
           </ul>
           <button className="bg-cyan-500 p-2 text-white cursor-pointer active:scale-70 transition duration-300">
             <a href={project.url} target="_blank">
-            View Project
+              View Project
             </a>
           </button>
           <button className="bg-cyan-500 p-2 ml-5 text-white cursor-pointer active:scale-70 transition duration-300">
             <a href={project.code} target="_blank">
-            View Code
+              View Code
             </a>
           </button>
         </div>
       </div>
     );
-  else 
-    return <div className="flex justify-center items-center text-white text-xl min-h-screen">No Project found with the id: {id}</div>
+  else
+    return (
+      <div className="flex justify-center items-center text-white text-xl min-h-screen">
+        No Project found with the id: {id}
+      </div>
+    );
 }
 
 export default Project;
