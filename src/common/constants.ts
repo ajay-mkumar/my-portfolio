@@ -117,7 +117,7 @@ export const workExperience: WorkExperience[] = [
     Duration: "July 2023 -Nov 2024",
     details: [
       "Worked as a Full Stack Developer at client location (Mexico) for an eCommerce application.",
-      "Led development of critical frontend features in React.js and backend APIs in Node.js.",
+      " Led frontend feature development using React.js and developed backend services with Java and Spring Boot.",
       "Built reusable components and maintained UI consistency with component libraries and Tailwind CSS.",
       "Implemented form validations, advanced state management, conditional rendering, and component composition to avoid prop drilling. Worked within Agile teams, participating in daily stand-ups, sprint planning, and retrospectives.",
       "Contributed to backend development and bug fixing using Node.js and Express.js.",

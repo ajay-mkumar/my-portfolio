@@ -9,7 +9,7 @@ function Projects(): React.ReactElement {
         <div
           onClick={() => navigate(`/projects/${project.id}`)}
           key={index}
-          className="bg-white shadow-lg overflow-hidden w-full max-w-sm border"
+          className=" shadow-lg overflow-hidden w-full max-w-sm"
         >
           <img
             src={project.img}
