@@ -1,6 +1,6 @@
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import NetlifyIcon from "../Icon/NetlifyIcon";
+import EmailIcon from '@mui/icons-material/Email';
 import { Tooltip, IconButton } from "@mui/material";
 
 type ExternalLinksPropTypes = {
@@ -34,14 +34,14 @@ function ExternalLinks({ isMobile }: ExternalLinksPropTypes) {
         </Tooltip>
       </li>
       <li>
-        <Tooltip title="Netlify" arrow>
+        <Tooltip title="ajaymkumar172@gmail.com" arrow>
           <IconButton
-            aria-label="Netlify"
-            href="https://your-project.netlify.app"
+            aria-label="Email"
+            href="mailto:ajaymkumar172@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <NetlifyIcon className="text-white" />
+            <EmailIcon className="text-white" />
           </IconButton>
         </Tooltip>
       </li>
