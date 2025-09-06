@@ -17,12 +17,14 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Homepage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:id" element={<Project />} />
+        <Route path="/:username">
+          <Route index element={<Navigate to="home" replace />} />
+          <Route path="home" element={<Homepage />} />
+          <Route path="about" element={<About />} />
+          <Route path="work" element={<Work />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="projects/:id" element={<Project />} />
+        </Route>
       </Routes>
       <Footer />
     </Router>
