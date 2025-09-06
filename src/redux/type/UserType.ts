@@ -10,6 +10,12 @@ export interface UserDetails {
 
 export interface UserState {
   userDetails: UserDetails | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
+}
+
+export interface LoginRequest {
+  username: string;
+  password: string;
 }

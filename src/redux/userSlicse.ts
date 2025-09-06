@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { UserDetails, UserState } from "./type/UserType";
+import type { LoginRequest, UserDetails, UserState } from "./type/UserType";
 
 export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   "users/fetchUserDetails",
@@ -12,8 +12,20 @@ export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   }
 );
 
+export const loginUser = createAsyncThunk<string, LoginRequest>(
+  "users/loginUser",
+  async (loginRequest) => {
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/",
+      loginRequest
+    );
+    return response.data;
+  }
+);
+
 const initialState: UserState = {
   userDetails: null,
+  token: null,
   loading: false,
   error: null,
 };
@@ -33,6 +45,18 @@ const userSlice = createSlice({
         state.userDetails = action.payload;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.token = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       });
