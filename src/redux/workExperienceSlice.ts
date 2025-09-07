@@ -6,7 +6,7 @@ import type {
 } from "./type/WorkType";
 import { putRequest } from "../utility/ApiRequestHelper";
 
-const addWorkExperience = createAsyncThunk<
+export const addWorkExperience = createAsyncThunk<
   WorkExperienceResponse,
   WorkExperienceRequest
 >("work/addWorkExperience", async (workExperienceRequest) => {

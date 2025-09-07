@@ -1,16 +1,19 @@
-import { CircularProgress, useMediaQuery } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchWorkExperience } from "../../redux/userSlicse";
+import WorkForm from "./WorkForm";
 
 function Work() {
   const isMobile = useMediaQuery("(max-width: 600px)");
   const { username } = useParams();
   const dispatch = useAppDispatch();
-  const { workExperience, loading, error } = useAppSelector(
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { workExperience, loading, error, username: loggedInUsername } = useAppSelector(
     (state) => state.user
   );
+  const isEdit = loggedInUsername === username;
 
   useEffect(() => {
     if (username) dispatch(fetchWorkExperience(username));
@@ -22,6 +25,7 @@ function Work() {
   if (!isMobile)
     return (
       <div className="m-10 p-5 card text-white">
+        {isEdit && <Button onClick={() => setIsFormOpen(true)}>Add</Button>}
         <h1 className="font-bold text-2xl text-cyan-500 p-5  rounded-lg shadow-inner text-center">
           Tata Consulatncy Services | July-2022 to present
         </h1>
@@ -44,6 +48,7 @@ function Work() {
             </div>
           ))}
         </div>
+        <WorkForm open={isFormOpen} onClose={() => setIsFormOpen(false)} />
       </div>
     );
   else
