@@ -12,17 +12,22 @@ import Footer from "./component/Footer/Footer";
 import Projects from "./component/Project/Projects";
 import Project from "./component/Project/Project";
 import LoginComponent from "./component/Auth/LoginComponent";
+import { useEffect } from "react";
+import { startTokenTimer } from "./utility/TokenHelper";
 
 function App() {
+  useEffect(() => {
+    startTokenTimer();
+  }, []);
+  
   return (
     <Router>
-     
       <Routes>
         <Route path="/auth">
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<LoginComponent />} />
         </Route>
-        <Route path="/:username" element={ <NavBar />}>
+        <Route path="/:username" element={<NavBar />}>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<Homepage />} />
           <Route path="about" element={<About />} />

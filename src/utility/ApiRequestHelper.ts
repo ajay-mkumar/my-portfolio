@@ -1,7 +1,8 @@
 import axios, { type AxiosRequestConfig, type Method } from "axios";
+import { getToken } from "./TokenHelper";
 
 const api = (url: string, method: Method, requestParams?: any) => {
-  const token = localStorage.getItem("token");
+  const token = getToken();
   const config: AxiosRequestConfig = {
     baseURL: "http://localhost:8080",
     url,

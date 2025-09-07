@@ -1,15 +1,25 @@
-import { useMediaQuery } from "@mui/material";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Button, useMediaQuery } from "@mui/material";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import ExternalLinks from "./ExternalLinks";
 import MobileNav from "./MobileNav";
 import { navItems } from "../../common/constants";
 import { useAppSelector } from "../../hooks/hooks";
 import capitalize from "../../common/capitalize";
+import { getToken, removeToken } from "../../utility/TokenHelper";
 
 function NavBar() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const { userDetails } = useAppSelector((state) => state.user);
+  const token = getToken();
+  console.log(token)
   const { username } = useParams();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeToken();
+
+    navigate("/auth");
+  };
 
   if (!isMobile)
     return (
@@ -32,6 +42,7 @@ function NavBar() {
                 {label}
               </Link>
             ))}
+            {token && <Button onClick={handleLogout}>logout</Button>}
           </ul>
           <ExternalLinks isMobile={isMobile} />
         </div>

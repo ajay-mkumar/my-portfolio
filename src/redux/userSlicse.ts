@@ -13,6 +13,7 @@ import {
   postRequest,
   putRequest,
 } from "../utility/ApiRequestHelper";
+import { getToken, setToken } from "../utility/TokenHelper";
 
 export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   "users/fetchUserDetails",
@@ -61,7 +62,7 @@ const initialState: UserState = {
   accademics: parsedUser?.accademics ? JSON.parse(parsedUser.accademics) : null,
   projects: null,
   workExperience: null,
-  token: localStorage.getItem("token") || null,
+  token: getToken() || null,
   loading: false,
   error: null,
 };
@@ -99,8 +100,7 @@ const userSlice = createSlice({
         state.error = null;
         state.token = token;
         state.username = username;
-        localStorage.setItem("token", token);
-        localStorage.setItem("username", username);
+        setToken(token, username, 3600)
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
