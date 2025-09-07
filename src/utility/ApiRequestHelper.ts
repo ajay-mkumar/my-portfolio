@@ -1,7 +1,7 @@
 import axios, { type AxiosRequestConfig, type Method } from "axios";
 import { getToken } from "./TokenHelper";
 
-const api = (url: string, method: Method, requestParams?: any) => {
+const api = (url: string, method: Method, requestParams?: unknown) => {
   const token = getToken();
   const config: AxiosRequestConfig = {
     baseURL: "http://localhost:8080",
@@ -21,15 +21,15 @@ const api = (url: string, method: Method, requestParams?: any) => {
   return axios(config).then((response) => response.data);
 };
 
-export const getRequest = (url: string, requestParams?: any) => {
+export const getRequest = (url: string, requestParams?: unknown) => {
   return api(url, "GET", requestParams);
 };
 
-export const postRequest = (url: string, requestParams?: any) => {
+export const postRequest = (url: string, requestParams?: unknown) => {
   return api(url, "POST", requestParams);
 };
 
-export const putRequest = (url: string, requestParams?: any) => {
+export const putRequest = (url: string, requestParams?: unknown) => {
   return api(url, "PUT", requestParams);
 };
 
