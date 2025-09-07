@@ -15,7 +15,7 @@ export interface workDetails {
   techStack: string;
 }
 
-interface accademics {
+export interface accademics {
   degree: string;
   specialization: string;
   college: string;

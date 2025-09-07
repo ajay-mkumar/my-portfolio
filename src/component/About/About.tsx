@@ -3,15 +3,17 @@ import { useAppSelector } from "../../hooks/hooks";
 import { Button } from "@mui/material";
 import WorkDetailsForm from "./WorkDetailsForm";
 import { useParams } from "react-router-dom";
+import AccademicsForm from "./AccademicsForm";
 
 function About() {
   const { userDetails, workDetails, accademics } = useAppSelector(
     (state) => state.user
   );
-  
-  const [isWorkFormOpen, setIsWorkFormOpen] = useState(false)
+
+  const [isWorkFormOpen, setIsWorkFormOpen] = useState(false);
+  const [isAccademicsFormOpen, setIsAccademicsFormOpen] = useState(false);
   const { username } = useParams();
-  const {username: loggedInUsername} = useAppSelector(state => state.user)
+  const { username: loggedInUsername } = useAppSelector((state) => state.user);
   const isEdit = username === loggedInUsername;
 
   return (
@@ -40,14 +42,21 @@ function About() {
             <li>{workDetails?.duration}</li>
             <li>Tech Stack: {workDetails?.techStack}</li>
           </ul>
-         {isEdit && <Button onClick={() => setIsWorkFormOpen(true)}>update</Button>}
+          {isEdit && (
+            <Button onClick={() => setIsWorkFormOpen(true)}>update</Button>
+          )}
         </div>
-      ) }
+      )}
 
-      <WorkDetailsForm open={isWorkFormOpen} onClose={() => setIsWorkFormOpen(false)} workDetails={workDetails} />
+      {/* work details form to update work details */}
+      <WorkDetailsForm
+        open={isWorkFormOpen}
+        onClose={() => setIsWorkFormOpen(false)}
+        workDetails={workDetails}
+      />
 
       {/* Academics */}
-      {accademics && (
+      {accademics ? (
         <div className="shadow-lg rounded-xl p-5">
           <h1 className="text-2xl font-bold text-cyan-500 mb-3">
             🎓 Academics
@@ -62,8 +71,22 @@ function About() {
             <li>{accademics?.duration}</li>
             <li>CGPA: {accademics?.CGPA}</li>
           </ul>
+          {isEdit && (
+            <Button onClick={() => setIsAccademicsFormOpen(true)}>
+              update
+            </Button>
+          )}
         </div>
+      ) : (
+        <Button onClick={() => setIsAccademicsFormOpen(true)}>add</Button>
       )}
+
+      {/* accademic details form to update accademic details */}
+      <AccademicsForm
+        open={isAccademicsFormOpen}
+        onClose={() => setIsAccademicsFormOpen(false)}
+        accademics={accademics}
+      />
     </div>
   );
 }
