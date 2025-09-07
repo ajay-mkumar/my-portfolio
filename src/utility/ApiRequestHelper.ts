@@ -27,3 +27,7 @@ export const getRequest = (url: string, requestParams?: any) => {
 export const postRequest = (url: string, requestParams?: any) => {
   return api(url, "POST", requestParams);
 };
+
+export const putRequest = (url: string, requestParams?: any) => {
+  return api(url, "PUT", requestParams);
+};

@@ -8,6 +8,7 @@ function About() {
   const { userDetails, workDetails, accademics } = useAppSelector(
     (state) => state.user
   );
+  
   const [isWorkFormOpen, setIsWorkFormOpen] = useState(false)
   const { username } = useParams();
   const {username: loggedInUsername} = useAppSelector(state => state.user)

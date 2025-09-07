@@ -2,6 +2,9 @@ import { Form, Formik } from "formik";
 import FormComponent from "../Form/FormComponent";
 import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
 import type { workDetails } from "../../redux/type/UserType";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addWorkDetails } from "../../redux/userSlicse";
+import { useNavigate } from "react-router-dom";
 
 interface WorkDetailsFormProps {
   open: boolean;
@@ -10,18 +13,32 @@ interface WorkDetailsFormProps {
 }
 
 function WorkDetailsForm({ open, onClose, workDetails }: WorkDetailsFormProps) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { username } = useAppSelector((state) => state.user);
 
-    const initialValues = {
-        companyName: workDetails?.companyName || '',
-        designation: workDetails?.designation || '',
-        duration: workDetails?.duration || '',
-        techStack: workDetails?.techStack || ''
+  const initialValues = {
+    companyName: workDetails?.companyName || "",
+    designation: workDetails?.designation || "",
+    duration: workDetails?.duration || "",
+    techStack: workDetails?.techStack || "",
+  };
+  async function handleSubmit(values: typeof initialValues) {
+    try {
+      await dispatch(addWorkDetails(JSON.stringify(values)));
+      navigate(`/${username}/about`);
+      onClose();
+    } catch (err) {
+      console.log(err);
     }
-  function handleSubmit() {}
+  }
 
   return (
     <FormComponent open={open} onClose={onClose} title="Add Work Details">
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => handleSubmit(values)}
+      >
         {({ handleChange, values }) => (
           <Form>
             <DialogContent dividers>
@@ -30,14 +47,14 @@ function WorkDetailsForm({ open, onClose, workDetails }: WorkDetailsFormProps) {
                 name="companyName"
                 onChange={handleChange}
                 value={values.companyName}
-                sx={{mb: 2}}
+                sx={{ mb: 2 }}
               />
               <TextField
                 label="designation"
                 name="designation"
                 onChange={handleChange}
                 value={values.designation}
-                sx={{ml: 2}}
+                sx={{ ml: 2 }}
               />
               <TextField
                 label="duration"
@@ -50,7 +67,7 @@ function WorkDetailsForm({ open, onClose, workDetails }: WorkDetailsFormProps) {
                 name="techStack"
                 onChange={handleChange}
                 value={values.techStack}
-                sx={{ml: 2}}
+                sx={{ ml: 2 }}
               />
             </DialogContent>
             <DialogActions>
@@ -61,7 +78,6 @@ function WorkDetailsForm({ open, onClose, workDetails }: WorkDetailsFormProps) {
                 Submit
               </Button>
             </DialogActions>
-
           </Form>
         )}
       </Formik>

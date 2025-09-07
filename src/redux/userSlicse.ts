@@ -7,7 +7,7 @@ import type {
   UserState,
   WorkExperience,
 } from "./type/UserType";
-import { getRequest, postRequest } from "../utility/ApiRequestHelper";
+import { getRequest, postRequest, putRequest } from "../utility/ApiRequestHelper";
 
 export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   "users/fetchUserDetails",
@@ -36,6 +36,13 @@ export const fetchWorkExperience = createAsyncThunk<WorkExperience[], string>(
     return await getRequest("/portfolio/workExp", { username });
   }
 );
+
+export const addWorkDetails = createAsyncThunk<UserDetails, string>(
+  "users/addWorkDetails",
+  async (workExperience) => {
+    return await putRequest("/user/updateUser", {workExperience});
+  }
+)
 
 const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
@@ -101,7 +108,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })
-
       .addCase(fetchWorkExperience.pending, (state) => {
         state.loading = true;
       })
@@ -111,6 +117,21 @@ const userSlice = createSlice({
         state.workExperience = action.payload;
       })
       .addCase(fetchWorkExperience.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(addWorkDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addWorkDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.userDetails = action.payload;
+        state.workDetails = action.payload.workExperience && JSON.parse(action.payload.workExperience) ;
+        localStorage.setItem("userDetails", JSON.stringify(action.payload));
+        localStorage.setItem("workDetails", action.payload.workExperience);
+      })
+      .addCase(addWorkDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       });
