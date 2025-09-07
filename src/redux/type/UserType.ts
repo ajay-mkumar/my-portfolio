@@ -33,7 +33,6 @@ export interface UserState {
   userDetails: UserDetails | null;
   workDetails: workDetails;
   accademics: accademics;
-  workExperience: WorkExperience[] | null;
   projects: ProjectDetails[] | null;
   token: string | null;
   loading: boolean;
@@ -58,10 +57,4 @@ export interface ProjectDetails {
   techStacks: string;
   githubLink: string;
   appLink: string;
-}
-
-export interface WorkExperience {
-  designation: string;
-  duration: string;
-  workDetails: string;
 }

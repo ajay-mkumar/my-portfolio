@@ -6,7 +6,6 @@ import type {
   UpdateUserDetailsType,
   UserDetails,
   UserState,
-  WorkExperience,
 } from "./type/UserType";
 import {
   getRequest,
@@ -36,13 +35,6 @@ export const fetchProjects = createAsyncThunk<ProjectDetails[], string>(
   }
 );
 
-export const fetchWorkExperience = createAsyncThunk<WorkExperience[], string>(
-  "users/fetchWorkExp",
-  async (username) => {
-    return await getRequest("/portfolio/workExp", { username });
-  }
-);
-
 export const UpdateUserDetails = createAsyncThunk<
   UserDetails,
   UpdateUserDetailsType
@@ -61,7 +53,6 @@ const initialState: UserState = {
     : null,
   accademics: parsedUser?.accademics ? JSON.parse(parsedUser.accademics) : null,
   projects: null,
-  workExperience: null,
   token: getToken() || null,
   loading: false,
   error: null,
@@ -100,7 +91,7 @@ const userSlice = createSlice({
         state.error = null;
         state.token = token;
         state.username = username;
-        setToken(token, username, 3600)
+        setToken(token, username, 3600);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -115,18 +106,6 @@ const userSlice = createSlice({
         state.projects = action.payload;
       })
       .addCase(fetchProjects.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message ?? "Something went wrong";
-      })
-      .addCase(fetchWorkExperience.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchWorkExperience.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.workExperience = action.payload;
-      })
-      .addCase(fetchWorkExperience.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })

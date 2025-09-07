@@ -11,9 +11,10 @@ interface WorkFormProps {
   open: boolean;
   onClose: () => void;
   workExperience?: WorkExperienceRequest;
+  id?: string
 }
 
-function WorkForm({ open, onClose, workExperience }: WorkFormProps) {
+function WorkForm({ open, onClose, workExperience, id }: WorkFormProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { username } = useAppSelector((state) => state.user);
@@ -34,7 +35,11 @@ function WorkForm({ open, onClose, workExperience }: WorkFormProps) {
 
   async function handleSubmit(values: WorkExperienceRequest) {
     try {
-      await dispatch(addWorkExperience(values));
+      if (id) {
+        await dispatch(addWorkExperience({ id, ...values }));
+      } else {
+        await dispatch(addWorkExperience(values));
+      }
       navigate(`/${username}/work`);
       onClose();
     } catch (err) {

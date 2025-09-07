@@ -14,7 +14,7 @@ export interface WorkExperienceRequest {
 }
 
 export interface WorkState {
-  workExperience: WorkExperienceResponse | null;
   loading: boolean;
   error: string | null;
+  workExperience: WorkExperienceResponse[] | null;
 }
