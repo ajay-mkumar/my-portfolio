@@ -11,7 +11,7 @@ function NavBar() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const { userDetails } = useAppSelector((state) => state.user);
   const token = getToken();
-  console.log(token)
+  
   const { username } = useParams();
   const navigate = useNavigate();
 
