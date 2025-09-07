@@ -3,19 +3,25 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import ExternalLinks from "./ExternalLinks";
 import MobileNav from "./MobileNav";
 import { navItems } from "../../common/constants";
+import { useAppSelector } from "../../hooks/hooks";
+import capitalize from "../../common/capitalize";
 
 function NavBar() {
   const isMobile = useMediaQuery("(max-width:600px)");
+  const { userDetails } = useAppSelector((state) => state.user);
   const { username } = useParams();
 
   if (!isMobile)
     return (
       <div>
         <div className="sm:flex justify-between m-5 relative">
-          <h1 className="absolute left-[250px] font-bold text-white name">
-            Ajay Muthukumaran
-          </h1>
-
+          {userDetails && (
+            <h1 className="absolute left-[250px] font-bold text-white name">
+              {capitalize(userDetails?.firstName) +
+                " " +
+                capitalize(userDetails?.lastName)}
+            </h1>
+          )}
           <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
             {navItems.map((label, index) => (
               <Link

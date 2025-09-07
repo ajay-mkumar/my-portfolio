@@ -1,22 +1,29 @@
-import { useState } from "react";
-import { useAppSelector } from "../../hooks/hooks";
-import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { Button, CircularProgress } from "@mui/material";
 import WorkDetailsForm from "./WorkDetailsForm";
 import { useParams } from "react-router-dom";
 import AccademicsForm from "./AccademicsForm";
 import AboutMeForm from "./AboutForm";
+import { fetchUserDetails } from "../../redux/userSlicse";
 
 function About() {
-  const { userDetails, workDetails, accademics } = useAppSelector(
-    (state) => state.user
-  );
-
+  const { userDetails, workDetails, accademics, loading, error } =
+    useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const [isWorkFormOpen, setIsWorkFormOpen] = useState(false);
   const [isAccademicsFormOpen, setIsAccademicsFormOpen] = useState(false);
   const [isAboutMeFormOpen, setIsAboutMeFormOpen] = useState(false);
   const { username } = useParams();
   const { username: loggedInUsername } = useAppSelector((state) => state.user);
   const isEdit = username === loggedInUsername;
+
+  useEffect(() => {
+    if (username) dispatch(fetchUserDetails(username));
+  }, [username, dispatch]);
+
+  if (loading) return <CircularProgress />;
+  if (error) alert(error);
 
   return (
     <div className="m-5 mt-10 p-5 space-y-10 card text-white">
@@ -92,7 +99,9 @@ function About() {
           )}
         </div>
       ) : (
-        <Button onClick={() => setIsAccademicsFormOpen(true)}>add</Button>
+        isEdit && (
+          <Button onClick={() => setIsAccademicsFormOpen(true)}>add</Button>
+        )
       )}
 
       {/* accademic details form to update accademic details */}

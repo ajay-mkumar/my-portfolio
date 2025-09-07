@@ -79,6 +79,11 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.userDetails = action.payload;
+        state.workDetails =
+          action.payload.workExperience &&
+          JSON.parse(action.payload.workExperience);
+        state.accademics =
+          action.payload.accademics && JSON.parse(action.payload.accademics);
         localStorage.setItem("userDetails", JSON.stringify(action.payload));
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
