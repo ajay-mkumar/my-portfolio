@@ -1,8 +1,23 @@
-import { useMediaQuery } from "@mui/material";
-import { workExperience } from "../../common/constants";
+import { CircularProgress, useMediaQuery } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useEffect } from "react";
+import { fetchWorkExperience } from "../../redux/userSlicse";
 
 function Work() {
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const { username } = useParams();
+  const dispatch = useAppDispatch();
+  const { workExperience, loading, error } = useAppSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+    if (username) dispatch(fetchWorkExperience(username));
+  }, [dispatch, username]);
+
+  if (loading) return <CircularProgress />;
+  if (error) alert(error);
 
   if (!isMobile)
     return (
@@ -11,19 +26,20 @@ function Work() {
           Tata Consulatncy Services | July-2022 to present
         </h1>
         <div className="shadow-2xl m-5 pt-5">
-          {workExperience.map((exp, index) => (
+          {workExperience && workExperience.map((exp, index) => (
             <div
               key={index}
               className="p-5 m-5 shadow-2xl rounded-lg  hover:scale-105 transition duration-300"
             >
               <h3 className="font-bold text-cyan-500">{exp.designation}</h3>
-              <p>{exp.Duration}</p>
+              <p>{exp.duration}</p>
               <ul className="m-5 list-disc text-justify list-inside">
-                {exp.details.map((detail, i) => (
+                {exp.workDetails}
+                {/* {exp.workDetails.map((detail, i) => (
                   <li key={i} className="p-1">
                     {detail}
                   </li>
-                ))}
+                ))} */}
               </ul>
             </div>
           ))}
@@ -37,14 +53,17 @@ function Work() {
           Tata Consulatncy Services | July-2022 to present
         </h3>
         <div className="m-5">
-          {workExperience.map((exp, index) => (
+          {workExperience && workExperience.map((exp, index) => (
             <div key={index} className=" p-5">
               <h3 className="font-bold text-cyan-500">{exp.designation}</h3>
-              <p className="shadow-lg p-3 ">{exp.Duration}</p>
+              <p className="shadow-lg p-3 ">{exp.duration}</p>
               <ul className="shadow-lg p-3 space-y-2">
-                {exp.details.map((detail, i) => (
-                  <li key={i} className=" shadow-lg">{detail}</li>
-                ))}
+                {/* {exp.details.map((detail, i) => (
+                  <li key={i} className=" shadow-lg">
+                    {detail}
+                  </li>
+                ))} */}
+                {exp.workDetails}
               </ul>
             </div>
           ))}
