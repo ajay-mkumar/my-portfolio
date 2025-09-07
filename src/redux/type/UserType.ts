@@ -8,8 +8,25 @@ export interface UserDetails {
   accademics: string;
 }
 
+interface workDetails {
+  companyName: string;
+  designation: string;
+  duration: string;
+  techStack: string;
+}
+
+interface accademics {
+  degree: string;
+  specialization: string;
+  college: string;
+  duration: string;
+  CGPA: string;
+}
+
 export interface UserState {
   userDetails: UserDetails | null;
+  workDetails: workDetails;
+  accademics: accademics;
   token: string | null;
   loading: boolean;
   error: string | null;

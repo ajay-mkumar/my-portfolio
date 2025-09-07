@@ -1,34 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import type { LoginRequest, UserDetails, UserState } from "./type/UserType";
+import { getRequest, postRequest } from "../utility/ApiRequestHelper";
 
 export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   "users/fetchUserDetails",
   async (username) => {
-    const response = await axios.get<UserDetails>(
-      `http://localhost:8080/portfolio?username=${username}`
-    );
-    return response.data;
+    return await getRequest("/portfolio", { username });
   }
 );
 
 export const loginUser = createAsyncThunk<string, LoginRequest>(
   "users/loginUser",
   async (loginRequest) => {
-    const response = await axios.post(
-      "http://localhost:8080/api/auth/",
-      loginRequest
-    );
-    return response.data;
+    return await postRequest("/api/auth", loginRequest);
   }
 );
 
+const storedUser: string | null = localStorage.getItem("userDetails");
+const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+
 const initialState: UserState = {
-  userDetails: null,
+  userDetails: parsedUser,
+  workDetails: parsedUser?.workExperience ? JSON.parse(parsedUser.workExperience) : null,
+  accademics: parsedUser?.accademics ? JSON.parse(parsedUser.accademics) : null,
   token: null,
   loading: false,
   error: null,
 };
+
 
 const userSlice = createSlice({
   name: "users",
@@ -43,6 +42,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.userDetails = action.payload;
+        localStorage.setItem("userDetails", JSON.stringify(action.payload));
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
         state.loading = false;
