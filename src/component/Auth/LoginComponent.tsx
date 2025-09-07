@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { loginUser } from "../../redux/userSlicse";
 import type { LoginRequest } from "../../redux/type/UserType";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function LoginComponent() {
   const dispatch = useAppDispatch();
@@ -13,8 +14,10 @@ function LoginComponent() {
     password: Yup.string().required("password is required"),
   });
 
+  const navigate = useNavigate();
+
   function handleSubmit(values: LoginRequest) {
-    dispatch(loginUser(values));
+    dispatch(loginUser(values)).unwrap().then((res) => navigate(`/${res.username}`));
   }
 
   return (
@@ -24,7 +27,7 @@ function LoginComponent() {
       onSubmit={(values) => handleSubmit(values)}
     >
       <Form className="flex flex-col justify-center items-center min-h-screen">
-        <Field name="username" placeholder="username" className="bg-white"/>
+        <Field name="username" placeholder="username" className="bg-white" />
         <ErrorMessage name="username" component="div" />
 
         <Field name="password" placeholder="password" className="bg-white" />

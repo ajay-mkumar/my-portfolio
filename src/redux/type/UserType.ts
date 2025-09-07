@@ -8,7 +8,7 @@ export interface UserDetails {
   accademics: string;
 }
 
-interface workDetails {
+export interface workDetails {
   companyName: string;
   designation: string;
   duration: string;
@@ -24,6 +24,7 @@ interface accademics {
 }
 
 export interface UserState {
+  username: string | null;
   userDetails: UserDetails | null;
   workDetails: workDetails;
   accademics: accademics;
@@ -37,6 +38,11 @@ export interface UserState {
 export interface LoginRequest {
   username: string;
   password: string;
+}
+
+export interface LoginResponse {
+  username: string;
+  token: string;
 }
 
 export interface ProjectDetails {

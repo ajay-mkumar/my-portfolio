@@ -1,10 +1,14 @@
 import axios, { type AxiosRequestConfig, type Method } from "axios";
 
 const api = (url: string, method: Method, requestParams?: any) => {
+  const token = localStorage.getItem("token");
   const config: AxiosRequestConfig = {
-    baseURL: 'http://localhost:8080',
+    baseURL: "http://localhost:8080",
     url,
     method,
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
   };
 
   if (method === "GET") {

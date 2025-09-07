@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { useAppSelector } from "../../hooks/hooks";
+import { Button } from "@mui/material";
+import WorkDetailsForm from "./WorkDetailsForm";
+import { useParams } from "react-router-dom";
 
 function About() {
   const { userDetails, workDetails, accademics } = useAppSelector(
     (state) => state.user
   );
+  const [isWorkFormOpen, setIsWorkFormOpen] = useState(false)
+  const { username } = useParams();
+  const {username: loggedInUsername} = useAppSelector(state => state.user)
+  const isEdit = username === loggedInUsername;
 
   return (
     <div className="m-5 mt-10 p-5 space-y-10 card text-white">
@@ -31,8 +39,11 @@ function About() {
             <li>{workDetails?.duration}</li>
             <li>Tech Stack: {workDetails?.techStack}</li>
           </ul>
+         {isEdit && <Button onClick={() => setIsWorkFormOpen(true)}>update</Button>}
         </div>
-      )}
+      ) }
+
+      <WorkDetailsForm open={isWorkFormOpen} onClose={() => setIsWorkFormOpen(false)} workDetails={workDetails} />
 
       {/* Academics */}
       {accademics && (

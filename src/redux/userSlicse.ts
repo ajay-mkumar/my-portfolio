@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type {
   LoginRequest,
+  LoginResponse,
   ProjectDetails,
   UserDetails,
   UserState,
@@ -15,10 +16,10 @@ export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   }
 );
 
-export const loginUser = createAsyncThunk<string, LoginRequest>(
+export const loginUser = createAsyncThunk<LoginResponse, LoginRequest>(
   "users/loginUser",
   async (loginRequest) => {
-    return await postRequest("/api/auth", loginRequest);
+    return await postRequest("/api/auth/", loginRequest);
   }
 );
 
@@ -40,6 +41,7 @@ const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
 
 const initialState: UserState = {
+  username: localStorage.getItem("username") || null,
   userDetails: parsedUser,
   workDetails: parsedUser?.workExperience
     ? JSON.parse(parsedUser.workExperience)
@@ -47,7 +49,7 @@ const initialState: UserState = {
   accademics: parsedUser?.accademics ? JSON.parse(parsedUser.accademics) : null,
   projects: null,
   workExperience: null,
-  token: null,
+  token: localStorage.getItem("token") || null,
   loading: false,
   error: null,
 };
@@ -75,9 +77,13 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        const { username, token } = action.payload;
         state.loading = false;
         state.error = null;
-        state.token = action.payload;
+        state.token = token;
+        state.username = username;
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
