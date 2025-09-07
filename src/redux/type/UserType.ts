@@ -23,6 +23,11 @@ export interface accademics {
   CGPA: string;
 }
 
+export interface UpdateUserDetailsType {
+  field: string;
+  value: string;
+}
+
 export interface UserState {
   username: string | null;
   userDetails: UserDetails | null;

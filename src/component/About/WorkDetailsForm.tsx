@@ -3,7 +3,7 @@ import FormComponent from "../Form/FormComponent";
 import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
 import type { workDetails } from "../../redux/type/UserType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addWorkDetails } from "../../redux/userSlicse";
+import { UpdateUserDetails } from "../../redux/userSlicse";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -33,7 +33,12 @@ function WorkDetailsForm({ open, onClose, workDetails }: WorkDetailsFormProps) {
   };
   async function handleSubmit(values: typeof initialValues) {
     try {
-      await dispatch(addWorkDetails(JSON.stringify(values)));
+      await dispatch(
+        UpdateUserDetails({
+          field: "workExperience",
+          value: JSON.stringify(values),
+        })
+      );
       navigate(`/${username}/about`);
       onClose();
     } catch (err) {

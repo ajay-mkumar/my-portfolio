@@ -3,7 +3,7 @@ import FormComponent from "../Form/FormComponent";
 import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
 import type { accademics } from "../../redux/type/UserType";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addAccademicDetails } from "../../redux/userSlicse";
+import { UpdateUserDetails } from "../../redux/userSlicse";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -35,7 +35,12 @@ function AccademicsForm({ open, onClose, accademics }: AccademicsFormProps) {
 
   async function handleSubmit(values: typeof initialValues) {
     try {
-      await dispatch(addAccademicDetails(JSON.stringify(values)));
+      await dispatch(
+        UpdateUserDetails({
+          field: "accademics",
+          value: JSON.stringify(values),
+        })
+      );
       navigate(`/${username}/about`);
       onClose();
     } catch (err) {

@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import WorkDetailsForm from "./WorkDetailsForm";
 import { useParams } from "react-router-dom";
 import AccademicsForm from "./AccademicsForm";
+import AboutMeForm from "./AboutForm";
 
 function About() {
   const { userDetails, workDetails, accademics } = useAppSelector(
@@ -12,6 +13,7 @@ function About() {
 
   const [isWorkFormOpen, setIsWorkFormOpen] = useState(false);
   const [isAccademicsFormOpen, setIsAccademicsFormOpen] = useState(false);
+  const [isAboutMeFormOpen, setIsAboutMeFormOpen] = useState(false);
   const { username } = useParams();
   const { username: loggedInUsername } = useAppSelector((state) => state.user);
   const isEdit = username === loggedInUsername;
@@ -22,11 +24,23 @@ function About() {
       {userDetails?.aboutMe && (
         <div className="shadow-lg rounded-xl p-5">
           <h1 className="text-2xl font-bold text-cyan-500 mb-3">👋 About Me</h1>
-          <p className="text-base w-full md:w-2/3 leading-relaxed">
-            {userDetails?.aboutMe}
-          </p>
+          <p
+            className="text-base w-full md:w-2/3 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: userDetails.aboutMe }}
+          />
+
+          {isEdit && (
+            <Button onClick={() => setIsAboutMeFormOpen(true)}>update</Button>
+          )}
         </div>
       )}
+
+      {/* about details form to update about details */}
+      <AboutMeForm
+        open={isAboutMeFormOpen}
+        onClose={() => setIsAboutMeFormOpen(false)}
+        aboutMe={userDetails?.aboutMe}
+      />
 
       {/* Work Experience */}
       {workDetails && (

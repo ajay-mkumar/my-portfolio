@@ -3,11 +3,16 @@ import type {
   LoginRequest,
   LoginResponse,
   ProjectDetails,
+  UpdateUserDetailsType,
   UserDetails,
   UserState,
   WorkExperience,
 } from "./type/UserType";
-import { getRequest, postRequest, putRequest } from "../utility/ApiRequestHelper";
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../utility/ApiRequestHelper";
 
 export const fetchUserDetails = createAsyncThunk<UserDetails, string>(
   "users/fetchUserDetails",
@@ -37,19 +42,12 @@ export const fetchWorkExperience = createAsyncThunk<WorkExperience[], string>(
   }
 );
 
-export const addWorkDetails = createAsyncThunk<UserDetails, string>(
-  "users/addWorkDetails",
-  async (workExperience) => {
-    return await putRequest("/user/updateUser", {workExperience});
-  }
-)
-
-export const addAccademicDetails = createAsyncThunk<UserDetails, string>(
-  "users/addAccademicDetails",
-  async (accademics) => {
-    return await putRequest("/user/updateUser", {accademics});
-  }
-)
+export const UpdateUserDetails = createAsyncThunk<
+  UserDetails,
+  UpdateUserDetailsType
+>("users/UpdateUserDetails", async ({ field, value }) => {
+  return await putRequest("/user/updateUser", { [field]: value });
+});
 
 const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
@@ -127,32 +125,26 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })
-      .addCase(addWorkDetails.pending, (state) => {
+      .addCase(UpdateUserDetails.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addWorkDetails.fulfilled, (state, action) => {
+      .addCase(UpdateUserDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
         state.userDetails = action.payload;
-        state.workDetails = action.payload.workExperience && JSON.parse(action.payload.workExperience) ;
-        localStorage.setItem("userDetails", JSON.stringify(action.payload));
-        localStorage.setItem("workDetails", action.payload.workExperience);
+
+        if (action.meta.arg.field === "workExperience") {
+          state.workDetails =
+            action.payload.workExperience &&
+            JSON.parse(action.payload.workExperience);
+        }
+
+        if (action.meta.arg.field === "accademics") {
+          state.accademics =
+            action.payload.accademics && JSON.parse(action.payload.accademics);
+        }
       })
-      .addCase(addWorkDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message ?? "Something went wrong";
-      })
-      .addCase(addAccademicDetails.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addAccademicDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.userDetails = action.payload;
-        state.accademics = action.payload.accademics && JSON.parse(action.payload.accademics) ;
-        localStorage.setItem("userDetails", JSON.stringify(action.payload));
-      })
-      .addCase(addAccademicDetails.rejected, (state, action) => {
+      .addCase(UpdateUserDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       });
