@@ -32,3 +32,7 @@ export const postRequest = (url: string, requestParams?: any) => {
 export const putRequest = (url: string, requestParams?: any) => {
   return api(url, "PUT", requestParams);
 };
+
+export const deleteRequest = (url: string) => {
+  return api(url, "DELETE");
+};

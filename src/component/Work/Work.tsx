@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect, useState } from "react";
 import WorkForm from "./WorkForm";
-import { fetchWorkExperience } from "../../redux/workExperienceSlice";
+import {
+  deleteWorkExperience,
+  fetchWorkExperience,
+} from "../../redux/workExperienceSlice";
 
 function Work() {
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -49,7 +52,16 @@ function Work() {
                 ))} */}
                 </ul>
                 {isEdit && (
-                  <Button onClick={() => setEditingIndex(exp.id)}>update</Button>
+                  <Button onClick={() => setEditingIndex(exp.id)}>
+                    update
+                  </Button>
+                )}
+                {isEdit && (
+                  <Button
+                    onClick={() => dispatch(deleteWorkExperience(exp.id))}
+                  >
+                    delete
+                  </Button>
                 )}
                 {editingIndex === exp.id && (
                   <WorkForm

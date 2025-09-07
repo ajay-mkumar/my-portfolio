@@ -4,8 +4,11 @@ import type {
   WorkExperienceResponse,
   WorkState,
 } from "./type/WorkType";
-import { getRequest, putRequest } from "../utility/ApiRequestHelper";
-
+import {
+  deleteRequest,
+  getRequest,
+  putRequest,
+} from "../utility/ApiRequestHelper";
 
 export const addWorkExperience = createAsyncThunk<
   WorkExperienceResponse,
@@ -17,10 +20,17 @@ export const addWorkExperience = createAsyncThunk<
   return await putRequest(url, workExperienceRequest);
 });
 
-export const fetchWorkExperience = createAsyncThunk<WorkExperienceResponse[], string>(
-  "users/fetchWorkExp",
-  async (username) => {
-    return await getRequest("/portfolio/workExp", { username });
+export const fetchWorkExperience = createAsyncThunk<
+  WorkExperienceResponse[],
+  string
+>("users/fetchWorkExp", async (username) => {
+  return await getRequest("/portfolio/workExp", { username });
+});
+
+export const deleteWorkExperience = createAsyncThunk<string, string>(
+  "users/deleteWorkExperience",
+  async (id) => {
+    return await deleteRequest(`user/workExperience/${id}`);
   }
 );
 
@@ -78,6 +88,19 @@ const workExperienceSlice = createSlice({
       .addCase(fetchWorkExperience.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(deleteWorkExperience.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteWorkExperience.fulfilled, (state, action) => {
+        state.loading = false;
+        state.workExperience = state.workExperience
+          ? state.workExperience.filter((we) => we.id !== action.meta.arg)
+          : null;
+      })
+      .addCase(deleteWorkExperience.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Somethign went wrong";
       });
   },
 });
