@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../hooks/hooks";
-import { loginUser } from "../../redux/userSlicse";
+import { addUser, loginUser } from "../../redux/userSlicse";
 import type { LoginRequest } from "../../redux/type/UserType";
 import {
   Box,
@@ -13,6 +13,7 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -52,13 +53,47 @@ function SignUpComponent() {
   const handleNext = () => setActiveStep((prev) => prev + 1);
   const handleBack = () => setActiveStep((prev) => prev - 1);
 
-  function handleSubmit(values: LoginRequest) {
+  function handleSubmit(values) {
     if (!isLastStep) {
       handleNext();
       return;
     }
 
-    dispatch(loginUser(values))
+    const workExperience = {
+      companyName: values.companyName,
+      role: values.role,
+      duration: values.workDurationFrom + "-" + values.workDurationTo,
+      techStakcs: values.techStacks,
+    };
+
+    const accademics = {
+      degree: values.degree,
+      specification: values.specification,
+      duration: values.degreeDurationFrom + "-" + values.degreeDurationTo,
+      college: values.college,
+      CGPA: values.CGPA,
+    };
+
+    const userDetails = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      username: values.username,
+      email: "asas@gmail.com",
+      aboutMe: values.aboutMe,
+      profilePicture: values.profilePicture,
+      resume: values.resume,
+      workExperience: JSON.stringify(workExperience),
+      accademics: JSON.stringify(accademics),
+      password: values.password,
+    };
+    const formData = new FormData();
+    formData.append("user", new Blob([JSON.stringify(userDetails)], { 
+      type: "application/json" 
+    }));
+    formData.append("profile-picture", values.profilePicture);
+    formData.append("resume", values.resume);
+
+    dispatch(addUser(formData))
       .unwrap()
       .then((res) => navigate(`/${res.username}`));
   }
@@ -68,10 +103,12 @@ function SignUpComponent() {
       initialValues={{
         firstName: "",
         lastName: "",
-        email: "",
+        email: "ajay@gmail.com",
         aboutMe: "",
         username: "",
         password: "",
+        profilePicture: "",
+        resume: "",
         degree: "",
         specification: "",
         college: "",
@@ -178,7 +215,6 @@ function SignUpComponent() {
                     error={touched.username && Boolean(errors.username)}
                     helperText={<ErrorMessage name="username" />}
                   />
-
                   {/* Password Field */}
                   <Field
                     as={TextField}
@@ -191,6 +227,62 @@ function SignUpComponent() {
                     error={touched.password && Boolean(errors.password)}
                     helperText={<ErrorMessage name="password" />}
                   />
+                  <Box display="flex" gap={2} mt={2}>
+                    <Typography>Profile Picture</Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      fullWidth
+                      sx={{ mb: 2 }}
+                    >
+                      + Upload File
+                      <input
+                        type="file"
+                        hidden
+                        onChange={(event) =>
+                          setFieldValue(
+                            "profilePicture",
+                            event.currentTarget.files?.[0] || null
+                          )
+                        }
+                      />
+                    </Button>
+
+                    {touched.profilePicture && errors.profilePicture && (
+                      <div style={{ color: "red" }}>
+                        {errors.profilePicture}
+                      </div>
+                    )}
+                  </Box>
+
+                  <Box display="flex" gap={2} mt={2}>
+                    <Typography>Resume</Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      fullWidth
+                      sx={{ mb: 2 }}
+                    >
+                      + Upload File
+                      <input
+                        type="file"
+                        hidden
+                        onChange={(event) =>
+                          setFieldValue(
+                            "resume",
+                            event.currentTarget.files?.[0] || null
+                          )
+                        }
+                      />
+                    </Button>
+
+                    {touched.resume && errors.resume && (
+                      <div style={{ color: "red" }}>
+                        {errors.resume}
+                      </div>
+                    )}
+                  </Box>
+                
                 </>
               )}
 
