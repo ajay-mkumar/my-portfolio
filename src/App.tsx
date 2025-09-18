@@ -14,6 +14,7 @@ import Project from "./component/Project/Project";
 import LoginComponent from "./component/Auth/LoginComponent";
 import { useEffect } from "react";
 import { startTokenTimer } from "./utility/TokenHelper";
+import SignUpComponent from "./component/Auth/SignUpComponent";
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/auth">
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<LoginComponent />} />
+          <Route path="signup" element={<SignUpComponent />} />
         </Route>
         <Route path="/:username" element={<NavBar />}>
           <Route index element={<Navigate to="home" replace />} />
