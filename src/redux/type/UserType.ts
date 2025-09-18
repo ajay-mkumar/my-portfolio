@@ -4,6 +4,8 @@ export interface UserDetails {
   username: string;
   email: string;
   aboutMe: string;
+  profilePicture: string;
+  resume: string;
   workExperience: string;
   accademics: string;
 }

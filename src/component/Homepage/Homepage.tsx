@@ -41,7 +41,7 @@ function Homepage() {
               <span className="block text-blue-500">Developer</span>
             </h1>
             <button
-              onClick={() => window.open("resume/resume.pdf", "_blank")}
+              onClick={() => window.open(`http://localhost:8080${userDetails?.resume}`, "_blank")}
               className="mt-5 bg-cyan-500 hover:bg-cyan-400 text-white pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300"
             >
               Resume
@@ -61,7 +61,7 @@ function Homepage() {
             }`}
           >
             <img
-              src="/avatar.png"
+              src={`http://localhost:8080${userDetails?.profilePicture}`}
               loading="lazy"
               alt="Ajay Avatar"
               className="rounded-full object-cover w-60 h-60 md:w-72 md:h-72 bg-cyan-800"

@@ -27,7 +27,7 @@ function Projects(): React.ReactElement {
             className=" shadow-lg overflow-hidden w-full max-w-sm"
           >
             <img
-              src={project.image}
+              src={`http://localhost:8080${project.image}`}
               loading="lazy"
               alt={`${project.name} preview`}
               className="w-full object-cover"
