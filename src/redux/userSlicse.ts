@@ -42,6 +42,13 @@ export const UpdateUserDetails = createAsyncThunk<
   return await putRequest("/user/updateUser", { [field]: value });
 });
 
+export const addUser = createAsyncThunk<UserDetails>(
+  "users/addUser",
+  async (userDetails) => {
+    return await postRequest("/api/auth/createUser", userDetails);
+  }
+);
+
 const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
 
@@ -79,6 +86,24 @@ const userSlice = createSlice({
         localStorage.setItem("userDetails", JSON.stringify(action.payload));
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(addUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.userDetails = action.payload;
+        state.workDetails =
+          action.payload.workExperience &&
+          JSON.parse(action.payload.workExperience);
+        state.accademics =
+          action.payload.accademics && JSON.parse(action.payload.accademics);
+        localStorage.setItem("userDetails", JSON.stringify(action.payload));
+      })
+      .addCase(addUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })
