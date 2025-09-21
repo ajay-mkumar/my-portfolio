@@ -4,7 +4,7 @@ import { getToken } from "./TokenHelper";
 const api = (url: string, method: Method, requestParams?: unknown) => {
   const token = getToken();
   const config: AxiosRequestConfig = {
-    baseURL: "http://localhost:8080",
+    baseURL: import.meta.env.VITE_APP_BASE_URL,
     url,
     method,
     headers: {

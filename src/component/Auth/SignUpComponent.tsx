@@ -78,14 +78,18 @@ function SignUpComponent() {
       firstName: values.firstName,
       lastName: values.lastName,
       username: values.username,
-      email: "asas@gmail.com",
+      email: values.email,
       aboutMe: values.aboutMe,
       profilePicture: values.profilePicture,
       resume: values.resume,
       workExperience: JSON.stringify(workExperience),
       accademics: JSON.stringify(accademics),
       password: values.password,
+      github: values.github,
+      phone: values.phone,
+      linkedIn: values.linkedIn
     };
+
     const formData = new FormData();
     formData.append("user", new Blob([JSON.stringify(userDetails)], { 
       type: "application/json" 
@@ -103,11 +107,14 @@ function SignUpComponent() {
       initialValues={{
         firstName: "",
         lastName: "",
-        email: "ajay@gmail.com",
+        email: "",
         aboutMe: "",
         username: "",
         password: "",
         profilePicture: "",
+        github: "",
+        phone: "",
+        linkedIn: "",
         resume: "",
         degree: "",
         specification: "",
@@ -215,6 +222,16 @@ function SignUpComponent() {
                     error={touched.username && Boolean(errors.username)}
                     helperText={<ErrorMessage name="username" />}
                   />
+                   <Field
+                    as={TextField}
+                    name="email"
+                    label="Email"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={<ErrorMessage name="email" />}
+                  />
                   {/* Password Field */}
                   <Field
                     as={TextField}
@@ -226,6 +243,39 @@ function SignUpComponent() {
                     fullWidth
                     error={touched.password && Boolean(errors.password)}
                     helperText={<ErrorMessage name="password" />}
+                  />
+                   <Field
+                    as={TextField}
+                    name="github"
+                    label="Github"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    error={touched.github && Boolean(errors.github)}
+                    helperText={<ErrorMessage name="github" />}
+                  />
+                   <Field
+                    as={TextField}
+                    name="phone"
+                    label="phone"
+                    type="number"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    error={touched.phone && Boolean(errors.phone)}
+                    helperText={<ErrorMessage name="phone" />}
+                  />
+                   <Field
+                    as={TextField}
+                    name="linkedIn"
+                    label="LinkedIn"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    error={touched.linkedIn && Boolean(errors.linkedIn)}
+                    helperText={<ErrorMessage name="linkedIn" />}
                   />
                   <Box display="flex" gap={2} mt={2}>
                     <Typography>Profile Picture</Typography>

@@ -8,6 +8,7 @@ import type {
   UserState,
 } from "./type/UserType";
 import {
+  deleteRequest,
   getRequest,
   postRequest,
   putRequest,
@@ -48,6 +49,20 @@ export const addUser = createAsyncThunk<UserDetails>(
     return await postRequest("/api/auth/createUser", userDetails);
   }
 );
+
+export const addProject = createAsyncThunk(
+  "project/addProject",
+  async(project) => {
+      return await postRequest('/projects/', project);
+  }
+)
+
+export const deleteProject = createAsyncThunk(
+  "project/deleteProject",
+  async(id) => {
+      return await deleteRequest(`/projects/${id}`);
+  }
+)
 
 const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
@@ -134,9 +149,36 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })
+      .addCase(addProject.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addProject.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.projects?.push(action.payload);
+      })
+      .addCase(addProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(deleteProject.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        console.log('here');
+        state.loading = false;
+        state.error = null;
+        state.projects = state.projects?.filter(project => project.id !== action.meta.arg);
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Something went wrong";
+      })
+     
       .addCase(UpdateUserDetails.pending, (state) => {
         state.loading = true;
       })
+      
       .addCase(UpdateUserDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
