@@ -1,8 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../hooks/hooks";
-import { addUser, loginUser } from "../../redux/userSlicse";
-import type { LoginRequest } from "../../redux/type/UserType";
+import { addUser } from "../../redux/userSlicse";
 import {
   Box,
   Button,
@@ -13,15 +12,15 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AboutMeEditor from "./AboutMeEditor";
 import AccademicForm from "./AccademicForm";
 import WorkExpForm from "./WorkExpForm";
+import MediaForm from "./Mediaform";
 
-const steps = ["Basic Details", "About Me", "Accademics", "Work Experience"];
+const steps = ["Basic Details", "About Me", "Accademics", "Work Experience", "Media"];
 
 function SignUpComponent() {
   const dispatch = useAppDispatch();
@@ -87,13 +86,16 @@ function SignUpComponent() {
       password: values.password,
       github: values.github,
       phone: values.phone,
-      linkedIn: values.linkedIn
+      linkedIn: values.linkedIn,
     };
 
     const formData = new FormData();
-    formData.append("user", new Blob([JSON.stringify(userDetails)], { 
-      type: "application/json" 
-    }));
+    formData.append(
+      "user",
+      new Blob([JSON.stringify(userDetails)], {
+        type: "application/json",
+      })
+    );
     formData.append("profile-picture", values.profilePicture);
     formData.append("resume", values.resume);
 
@@ -222,7 +224,7 @@ function SignUpComponent() {
                     error={touched.username && Boolean(errors.username)}
                     helperText={<ErrorMessage name="username" />}
                   />
-                   <Field
+                  <Field
                     as={TextField}
                     name="email"
                     label="Email"
@@ -244,7 +246,7 @@ function SignUpComponent() {
                     error={touched.password && Boolean(errors.password)}
                     helperText={<ErrorMessage name="password" />}
                   />
-                   <Field
+                  <Field
                     as={TextField}
                     name="github"
                     label="Github"
@@ -255,7 +257,7 @@ function SignUpComponent() {
                     error={touched.github && Boolean(errors.github)}
                     helperText={<ErrorMessage name="github" />}
                   />
-                   <Field
+                  <Field
                     as={TextField}
                     name="phone"
                     label="phone"
@@ -266,7 +268,7 @@ function SignUpComponent() {
                     error={touched.phone && Boolean(errors.phone)}
                     helperText={<ErrorMessage name="phone" />}
                   />
-                   <Field
+                  <Field
                     as={TextField}
                     name="linkedIn"
                     label="LinkedIn"
@@ -277,62 +279,6 @@ function SignUpComponent() {
                     error={touched.linkedIn && Boolean(errors.linkedIn)}
                     helperText={<ErrorMessage name="linkedIn" />}
                   />
-                  <Box display="flex" gap={2} mt={2}>
-                    <Typography>Profile Picture</Typography>
-                    <Button
-                      variant="outlined"
-                      component="label"
-                      fullWidth
-                      sx={{ mb: 2 }}
-                    >
-                      + Upload File
-                      <input
-                        type="file"
-                        hidden
-                        onChange={(event) =>
-                          setFieldValue(
-                            "profilePicture",
-                            event.currentTarget.files?.[0] || null
-                          )
-                        }
-                      />
-                    </Button>
-
-                    {touched.profilePicture && errors.profilePicture && (
-                      <div style={{ color: "red" }}>
-                        {errors.profilePicture}
-                      </div>
-                    )}
-                  </Box>
-
-                  <Box display="flex" gap={2} mt={2}>
-                    <Typography>Resume</Typography>
-                    <Button
-                      variant="outlined"
-                      component="label"
-                      fullWidth
-                      sx={{ mb: 2 }}
-                    >
-                      + Upload File
-                      <input
-                        type="file"
-                        hidden
-                        onChange={(event) =>
-                          setFieldValue(
-                            "resume",
-                            event.currentTarget.files?.[0] || null
-                          )
-                        }
-                      />
-                    </Button>
-
-                    {touched.resume && errors.resume && (
-                      <div style={{ color: "red" }}>
-                        {errors.resume}
-                      </div>
-                    )}
-                  </Box>
-                
                 </>
               )}
 
@@ -352,6 +298,15 @@ function SignUpComponent() {
 
               {activeStep == 3 && (
                 <WorkExpForm touched={touched} errors={errors} />
+              )}
+
+              {activeStep == 4 && (
+                <MediaForm
+                  errors={errors}
+                  touched={touched}
+                  setFieldValue={setFieldValue}
+                  values={values}
+                />
               )}
 
               <Box display="flex" justifyContent="space-between" mt={3}>

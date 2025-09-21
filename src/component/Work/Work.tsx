@@ -30,7 +30,7 @@ function Work() {
   if (!isMobile)
     return (
       <div className="m-10 p-5 card text-white">
-        {isEdit && <Button onClick={() => setIsFormOpen(true)}>Add</Button>}
+        {isEdit && <Button onClick={() => setIsFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>Add</Button>}
         <h1 className="font-bold text-2xl text-cyan-500 p-5  rounded-lg shadow-inner text-center">
           Tata Consulatncy Services | July-2022 to present
         </h1>
@@ -52,13 +52,14 @@ function Work() {
                 ))} */}
                 </ul>
                 {isEdit && (
-                  <Button onClick={() => setEditingIndex(exp.id)}>
+                  <Button onClick={() => setEditingIndex(exp.id)} sx={{backgroundColor: 'cyan', margin: 2}}>
                     update
                   </Button>
                 )}
                 {isEdit && (
                   <Button
                     onClick={() => dispatch(deleteWorkExperience(exp.id))}
+                    sx={{backgroundColor: 'red', margin: 2}}
                   >
                     delete
                   </Button>

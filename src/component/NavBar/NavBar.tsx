@@ -41,10 +41,14 @@ function NavBar() {
               >
                 {label}
               </Link>
+              
             ))}
-            {token && <Button onClick={handleLogout}>logout</Button>}
+          {token && <Link><Button onClick={handleLogout} sx={{backgroundColor: 'cyan', margin: 2}}>logout</Button></Link>}
+
           </ul>
+          
           <ExternalLinks isMobile={isMobile} />
+          
         </div>
         <div className="mt-20">
           <Outlet />

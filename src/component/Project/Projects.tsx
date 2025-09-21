@@ -23,7 +23,7 @@ function Projects(): React.ReactElement {
 
   return (
     <div className="m-10 p-5 flex flex-wrap gap-2 cursor-pointer card">
-      {isEdit && <Button onClick={() => setIsFormOpen(true)}>Add</Button>}
+      {isEdit && <Button onClick={() => setIsFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>Add</Button>}
       {projects &&
         projects.map((project, index) => (
           <div

@@ -37,7 +37,7 @@ function About() {
           />
 
           {isEdit && (
-            <Button onClick={() => setIsAboutMeFormOpen(true)}>update</Button>
+            <Button onClick={() => setIsAboutMeFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>update</Button>
           )}
         </div>
       )}
@@ -64,7 +64,7 @@ function About() {
             <li>Tech Stack: {workDetails?.techStack}</li>
           </ul>
           {isEdit && (
-            <Button onClick={() => setIsWorkFormOpen(true)}>update</Button>
+            <Button onClick={() => setIsWorkFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>update</Button>
           )}
         </div>
       )}
@@ -93,7 +93,7 @@ function About() {
             <li>CGPA: {accademics?.CGPA}</li>
           </ul>
           {isEdit && (
-            <Button onClick={() => setIsAccademicsFormOpen(true)}>
+            <Button onClick={() => setIsAccademicsFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>
               update
             </Button>
           )}
