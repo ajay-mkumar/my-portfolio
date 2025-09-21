@@ -15,15 +15,17 @@ import LoginComponent from "./component/Auth/LoginComponent";
 import { useEffect } from "react";
 import { startTokenTimer } from "./utility/TokenHelper";
 import SignUpComponent from "./component/Auth/SignUpComponent";
+import LandingPage from "./component/Homepage/LandingPage";
 
 function App() {
   useEffect(() => {
     startTokenTimer();
   }, []);
-  
+
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/auth">
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<LoginComponent />} />
