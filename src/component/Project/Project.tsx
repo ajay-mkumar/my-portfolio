@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom";
-import { projects } from "../../common/constants";
+import { useAppSelector } from "../../hooks/hooks";
 
 function Project() {
   const { id } = useParams();
-  const project = projects.find((project) => project.id === Number(id));
+  const { projects } = useAppSelector((state) => state.user);
+
+  if (!projects) return <div className="flex justify-center items-center text-white text-xl min-h-screen">No projects to display</div>
+
+  const project = projects.find((project) => project.id == id);
+
   if (project)
     return (
       <div className="m-10 p-5 space-y-10 text-white min-h-screen card">
@@ -11,7 +16,7 @@ function Project() {
           <h1 className="text-2xl font-bold text-cyan-500">{project.name}</h1>
 
           <img
-            src={project.img}
+            src={project.image}
             loading="lazy"
             alt={`${project.name} preview`}
             className="w-full md:w-2/3 lg:w-1/2 rounded-lg mx-auto"
@@ -20,7 +25,7 @@ function Project() {
           {/* Tech Stack Pills */}
           <div className="flex flex-wrap gap-3 p-4 rounded-lg shadow-inner">
             <span className="font-semibold ">Tech Stack:</span>
-            {project.techStack.map((tech, index) => (
+            {Array.isArray(project.techStack) && project.techStack.map((tech, index) => (
               <span
                 key={index}
                 className="bg-cyan-800 text-white text-sm px-3 py-1 rounded-full hover:bg-blue-400 transition"
@@ -32,19 +37,19 @@ function Project() {
 
           {/* Project Description */}
           <ul className="list-disc list-inside p-5 rounded-lg shadow-inner">
-            {project.description.map((des, i) => (
+            {Array.isArray(project.description) && project.description.map((des, i) => (
               <li key={i} className="mb-1">
                 {des}
               </li>
             ))}
           </ul>
           <button className="bg-cyan-500 p-2 text-white cursor-pointer active:scale-70 transition duration-300">
-            <a href={project.url} target="_blank">
+            <a href={project.appLink} target="_blank">
               View Project
             </a>
           </button>
           <button className="bg-cyan-500 p-2 ml-5 text-white cursor-pointer active:scale-70 transition duration-300">
-            <a href={project.code} target="_blank">
+            <a href={project.githubLink} target="_blank">
               View Code
             </a>
           </button>

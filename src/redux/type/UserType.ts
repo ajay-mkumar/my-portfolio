@@ -6,6 +6,9 @@ export interface UserDetails {
   aboutMe: string;
   profilePicture: string;
   resume: string;
+  github: string;
+  phone: string;
+  linkedIn: string;
   workExperience: string;
   accademics: string;
 }

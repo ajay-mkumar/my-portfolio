@@ -20,7 +20,7 @@ type Skills = {
   testingAndTools: string[];
 };
 
-export const navItems = ["Home", "About", "Work", "Projects"];
+export const navItems = ["Home", "About", "Work", "Projects", "logout"];
 
 export const projects: Project[] = [
   {

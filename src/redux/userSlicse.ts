@@ -52,17 +52,17 @@ export const addUser = createAsyncThunk<UserDetails>(
 
 export const addProject = createAsyncThunk(
   "project/addProject",
-  async(project) => {
-      return await postRequest('/projects/', project);
+  async (project) => {
+    return await postRequest("/projects/", project);
   }
-)
+);
 
 export const deleteProject = createAsyncThunk(
   "project/deleteProject",
-  async(id) => {
-      return await deleteRequest(`/projects/${id}`);
+  async (id) => {
+    return await deleteRequest(`/projects/${id}`);
   }
-)
+);
 
 const storedUser: string | null = localStorage.getItem("userDetails");
 const parsedUser = storedUser ? JSON.parse(storedUser) : null;
@@ -74,7 +74,9 @@ const initialState: UserState = {
     ? JSON.parse(parsedUser.workExperience)
     : null,
   accademics: parsedUser?.accademics ? JSON.parse(parsedUser.accademics) : null,
-  projects: null,
+  projects: localStorage.getItem("projects")
+    ? JSON.parse(localStorage.getItem("projects"))
+    : null,
   token: getToken() || null,
   loading: false,
   error: null,
@@ -144,6 +146,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.projects = action.payload;
+        localStorage.setItem("projects", JSON.stringify(action.payload));
       })
       .addCase(fetchProjects.rejected, (state, action) => {
         state.loading = false;
@@ -156,6 +159,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.projects?.push(action.payload);
+        localStorage.setItem("projects", JSON.stringify(state.projects));
       })
       .addCase(addProject.rejected, (state, action) => {
         state.loading = false;
@@ -165,20 +169,24 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(deleteProject.fulfilled, (state, action) => {
-        console.log('here');
+        console.log("here");
         state.loading = false;
         state.error = null;
-        state.projects = state.projects?.filter(project => project.id !== action.meta.arg);
+        state.projects = state.projects?.filter(
+          (project) => project.id !== action.meta.arg
+        );
+
+        localStorage.setItem("projects", JSON.stringify(state.projects));
       })
       .addCase(deleteProject.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Something went wrong";
       })
-     
+
       .addCase(UpdateUserDetails.pending, (state) => {
         state.loading = true;
       })
-      
+
       .addCase(UpdateUserDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;

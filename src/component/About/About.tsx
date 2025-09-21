@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import AccademicsForm from "./AccademicsForm";
 import AboutMeForm from "./AboutForm";
 import { fetchUserDetails } from "../../redux/userSlicse";
+import { getToken } from "../../utility/TokenHelper";
 
 function About() {
   const { userDetails, workDetails, accademics, loading, error } =
@@ -16,7 +17,8 @@ function About() {
   const [isAboutMeFormOpen, setIsAboutMeFormOpen] = useState(false);
   const { username } = useParams();
   const { username: loggedInUsername } = useAppSelector((state) => state.user);
-  const isEdit = username === loggedInUsername;
+  const token = getToken();
+  const isEdit = token && username === loggedInUsername;
 
   useEffect(() => {
     if (username) dispatch(fetchUserDetails(username));
@@ -37,7 +39,12 @@ function About() {
           />
 
           {isEdit && (
-            <Button onClick={() => setIsAboutMeFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>update</Button>
+            <Button
+              onClick={() => setIsAboutMeFormOpen(true)}
+              sx={{ backgroundColor: "cyan", margin: 2 }}
+            >
+              update
+            </Button>
           )}
         </div>
       )}
@@ -64,7 +71,12 @@ function About() {
             <li>Tech Stack: {workDetails?.techStack}</li>
           </ul>
           {isEdit && (
-            <Button onClick={() => setIsWorkFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>update</Button>
+            <Button
+              onClick={() => setIsWorkFormOpen(true)}
+              sx={{ backgroundColor: "cyan", margin: 2 }}
+            >
+              update
+            </Button>
           )}
         </div>
       )}
@@ -93,7 +105,10 @@ function About() {
             <li>CGPA: {accademics?.CGPA}</li>
           </ul>
           {isEdit && (
-            <Button onClick={() => setIsAccademicsFormOpen(true)} sx={{backgroundColor: 'cyan', margin: 2}}>
+            <Button
+              onClick={() => setIsAccademicsFormOpen(true)}
+              sx={{ backgroundColor: "cyan", margin: 2 }}
+            >
               update
             </Button>
           )}

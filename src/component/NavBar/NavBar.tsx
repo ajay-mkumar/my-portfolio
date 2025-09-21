@@ -18,7 +18,7 @@ function NavBar() {
   const handleLogout = () => {
     removeToken();
 
-    navigate("/auth");
+    // navigate("/auth");
   };
 
   if (!isMobile)
@@ -35,19 +35,19 @@ function NavBar() {
           <ul className="flex justify-center gap-5 absolute left-1/2 transform -translate-x-1/2">
             {navItems.map((label, index) => (
               <Link
-                to={`/${username}/${label.toLowerCase()}`}
+                to={label === 'logout' ? '/auth' : `/${username}/${label.toLowerCase()}`}
                 key={index}
+                onClick={label === 'logout' && handleLogout}
                 className="text-white hover:text-blue-500 font-medium text-sm md:text-base cursor-pointer transition-all duration-300 transform hover:scale-110"
               >
-                {label}
+                {label === 'logout' ? token && label : label}
               </Link>
               
             ))}
-          {token && <Link><Button onClick={handleLogout} sx={{backgroundColor: 'cyan', margin: 2}}>logout</Button></Link>}
 
           </ul>
           
-          <ExternalLinks isMobile={isMobile} />
+          <ExternalLinks isMobile={isMobile} user={userDetails} />
           
         </div>
         <div className="mt-20">
