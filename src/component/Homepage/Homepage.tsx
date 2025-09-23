@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import SkillSet from "../SkillSet/SkillSet";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { fetchUserDetails } from "../../redux/userSlicse";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { getToken } from "../../utility/TokenHelper";
 
 function Homepage() {
   const [modal, setModal] = useState("");
   const [flipIn, setFlipIn] = useState(false);
   const dispatch = useAppDispatch();
-  const {userDetails, loading, error} = useAppSelector(state => state.user);
+  const { userDetails, loading, error } = useAppSelector((state) => state.user);
   const { username } = useParams();
+  const navigate = useNavigate();
+  const { username: loggedInUsername } = useAppSelector((state) => state.user);
+  const token = getToken();
+  const isEdit = token && username === loggedInUsername;
 
   useEffect(() => {
     if (username) dispatch(fetchUserDetails(username));
@@ -24,8 +29,8 @@ function Homepage() {
     return () => clearInterval(interval); // cleanup on unmount
   }, []);
 
-  if (loading) return <CircularProgress />
-  if (error) return <p>{error}</p>
+  if (loading) return <CircularProgress />;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -52,6 +57,14 @@ function Homepage() {
             >
               Skillset
             </button>
+            {isEdit && (
+              <button
+                onClick={() => navigate(`/${username}/update`)}
+                className="mt-5 ml-5 bg-cyan-500 hover:bg-cyan-400 text-white pl-5 pr-5 px-2 py-2 shadow-lg hover:scale-120 transition duration-300"
+              >
+                Update Details
+              </button>
+            )}
           </div>
 
           {/* Image Section */}

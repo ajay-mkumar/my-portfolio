@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { startTokenTimer } from "./utility/TokenHelper";
 import SignUpComponent from "./component/Auth/SignUpComponent";
 import LandingPage from "./component/Homepage/LandingPage";
+import UpdateUser from "./component/Homepage/UpdateUser";
 
 function App() {
   useEffect(() => {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/:username" element={<NavBar />}>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<Homepage />} />
+          <Route path="update" element={<UpdateUser />} />
           <Route path="about" element={<About />} />
           <Route path="work" element={<Work />} />
           <Route path="projects" element={<Projects />} />
