@@ -39,8 +39,9 @@ export const fetchProjects = createAsyncThunk<ProjectDetails[], string>(
 export const UpdateUserDetails = createAsyncThunk<
   UserDetails,
   UpdateUserDetailsType
->("users/UpdateUserDetails", async ({ field, value }) => {
-  return await putRequest("/user/updateUser", { [field]: value });
+>("users/UpdateUserDetails", async (payload) => {
+  if ("field" in payload && "value" in payload) return await putRequest({ [field]: value })
+  return await putRequest("/user/updateUser", payload);
 });
 
 export const addUser = createAsyncThunk<UserDetails>(

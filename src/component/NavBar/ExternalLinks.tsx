@@ -36,7 +36,7 @@ function ExternalLinks({ isMobile, user }: ExternalLinksPropTypes) {
         </Tooltip>
       </li>
       <li>
-        <Tooltip title="ajaymkumar172@gmail.com" arrow>
+        <Tooltip title={user.email} arrow>
           <IconButton
             aria-label="Email"
             href={`mailto:${user.email}`}

@@ -1,10 +1,10 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addUser } from "../../redux/userSlicse";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MediaForm from "../Auth/Mediaform";
+import { UpdateUserDetails } from "../../redux/userSlicse";
 
 function UpdateUser() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,6 @@ function UpdateUser() {
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
     username: Yup.string().required("Username is required"),
-    password: Yup.string().required("password is required"),
   });
 
   const initialValues = {
@@ -31,6 +30,7 @@ function UpdateUser() {
   const navigate = useNavigate();
 
   function handleSubmit(values) {
+    console.log(values);
     const userDetails = {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -51,14 +51,19 @@ function UpdateUser() {
         type: "application/json",
       })
     );
-    formData.append("profile-picture", values.profilePicture);
-    formData.append("resume", values.resume);
 
-    dispatch(addUser(formData))
+    if (values.profilePicture instanceof File) {
+      formData.append("profile-picture", values.profilePicture);
+    }
+    if (values.resume instanceof File) {
+      formData.append("resume", values.resume);
+    }
+
+    dispatch(UpdateUserDetails(formData))
       .unwrap()
       .then((res) => navigate(`/${res.username}`));
   }
-  console.log(userDetails);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -127,9 +132,9 @@ function UpdateUser() {
               </Box>
             </Box>
             <Box>
-                <Button type="submit" variant="contained" sx={{marginTop: 5}}>
-                    Update
-                </Button>
+              <Button type="submit" variant="contained" sx={{ marginTop: 5 }}>
+                Update
+              </Button>
             </Box>
           </Box>
         </Form>
